@@ -5,6 +5,7 @@ import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import net.zetlan.examples.cli.ServiceName;
+import net.zetlan.examples.config.DistributedExampleConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vyarus.dropwizard.guice.GuiceBundle;
