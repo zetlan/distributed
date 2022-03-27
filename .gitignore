@@ -2,4 +2,4 @@ target/
 *.log
 *.swp
 .idea
-db/
+*.db

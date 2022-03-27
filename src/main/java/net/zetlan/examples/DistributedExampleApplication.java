@@ -1,9 +1,7 @@
 package net.zetlan.examples;
 
+import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.Application;
-import io.dropwizard.db.PooledDataSourceFactory;
-import io.dropwizard.hibernate.HibernateBundle;
-import io.dropwizard.hibernate.SessionFactoryFactory;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import net.zetlan.examples.cli.ServiceName;
@@ -11,7 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vyarus.dropwizard.guice.GuiceBundle;
 
-import javax.swing.text.html.parser.Entity;
+import javax.persistence.Entity;
 import java.util.List;
 
 public class DistributedExampleApplication extends Application<DistributedExampleConfiguration> {
@@ -19,16 +17,16 @@ public class DistributedExampleApplication extends Application<DistributedExampl
 
     private ServiceName name = ServiceName.TEST;
 
-    private final HibernateBundle<DistributedExampleConfiguration> hibernate = new HibernateBundle<DistributedExampleConfiguration>(getEntityClasses(), new SessionFactoryFactory()) {
-        @Override
-        public PooledDataSourceFactory getDataSourceFactory(DistributedExampleConfiguration configuration) {
-            return configuration.getDatabase();
-        }
-    };
+//    private final HibernateBundle<DistributedExampleConfiguration> hibernate = new HibernateBundle<DistributedExampleConfiguration>(getEntityClasses(), new SessionFactoryFactory()) {
+//        @Override
+//        public PooledDataSourceFactory getDataSourceFactory(DistributedExampleConfiguration configuration) {
+//            return configuration.getDatabase();
+//        }
+//    };
 
     private final GuiceBundle guiceBundle = GuiceBundle.builder()
             .enableAutoConfig("net.zetlan.examples")
-            .modules(new DistributedExampleModule(hibernate))
+            .modules(new DistributedExampleModule())
             .build();
 
     public static void main(final String[] args) throws Exception {
@@ -43,7 +41,7 @@ public class DistributedExampleApplication extends Application<DistributedExampl
     @Override
     public void initialize(final Bootstrap<DistributedExampleConfiguration> bootstrap) {
         LOGGER.error("Initialize");
-        bootstrap.addBundle(hibernate);
+//        bootstrap.addBundle(hibernate);
         bootstrap.addBundle(guiceBundle);
     }
 
@@ -55,7 +53,8 @@ public class DistributedExampleApplication extends Application<DistributedExampl
         LOGGER.info("Running {} service....", this.name);
     }
 
-    private List<Class<?>> getEntityClasses() {
+    @VisibleForTesting
+    static List<Class<?>> getEntityClasses() {
         return Utils.getPackageClassesWithAnnotation("net.zetlan.examples.db", Entity.class);
     }
 }

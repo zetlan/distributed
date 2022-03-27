@@ -2,9 +2,10 @@ logging:
   level: INFO
   loggers:
     net.zetlan.examples: DEBUG
-    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: WARN
+#    org.hibernate.engine.internal.StatisticalLoggingSessionEventListener: WARN
     org.hibernate.orm.deprecation: ERROR
-
+    log4j.logger.org.hibernate.SQL: DEBUG
+    log4j.logger.org.hibernate.type.descriptor.sql: TRACE
 serviceName: USER
 
 server:
@@ -14,11 +15,3 @@ server:
   adminConnectors:
     - type: http
       port: 8081
-
-database:
-  url: jdbc:h2:./db/h2database;AUTO_SERVER=TRUE;AUTO_SERVER_PORT=10000
-  driverClass: org.h2.Driver
-  properties:
-    charSet: UTF-8
-    hibernate.dialect: org.hibernate.dialect.H2Dialect
-  validationQuery: "/* Application Health Check */ SELECT 1"

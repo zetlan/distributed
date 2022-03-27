@@ -2,12 +2,14 @@ package net.zetlan.examples.resources.user;
 
 import com.google.common.base.Preconditions;
 import io.dropwizard.hibernate.UnitOfWork;
+import net.zetlan.examples.api.UserRequests;
 import net.zetlan.examples.api.UserView;
 import net.zetlan.examples.core.Mapper;
 import net.zetlan.examples.core.UserManager;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -31,6 +33,11 @@ public class UserResource {
                 .stream()
                 .map(Mapper::map)
                 .collect(Collectors.toList());
+    }
 
+    @POST
+    @UnitOfWork
+    public UserView createUser(UserRequests.CreateUser createUser) {
+        return Mapper.map(userManager.createUser(createUser));
     }
 }
