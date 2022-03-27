@@ -30,7 +30,7 @@ public abstract class BaseClient {
     protected final URI baseUri;
 
     protected final ObjectMapper objectMapper;
-    
+
     @Inject
     public BaseClient(final HttpClient httpClient, final ServiceConfiguration serviceConfiguration) {
         this.httpClient = Preconditions.checkNotNull(httpClient, "HttpClient may not be null");
