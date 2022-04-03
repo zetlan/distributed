@@ -1,6 +1,5 @@
 package net.zetlan.examples;
 
-import com.google.common.annotations.VisibleForTesting;
 import io.dropwizard.Application;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
@@ -9,9 +8,6 @@ import net.zetlan.examples.config.DistributedExampleConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.vyarus.dropwizard.guice.GuiceBundle;
-
-import javax.persistence.Entity;
-import java.util.List;
 
 public class DistributedExampleApplication extends Application<DistributedExampleConfiguration> {
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributedExampleApplication.class);
@@ -52,10 +48,5 @@ public class DistributedExampleApplication extends Application<DistributedExampl
         LOGGER.error("Run");
         this.name = configuration.getServiceName();
         LOGGER.info("Running {} service....", this.name);
-    }
-
-    @VisibleForTesting
-    static List<Class<?>> getEntityClasses() {
-        return Utils.getPackageClassesWithAnnotation("net.zetlan.examples.db", Entity.class);
     }
 }
