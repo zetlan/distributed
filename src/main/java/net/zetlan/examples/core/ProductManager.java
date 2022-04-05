@@ -3,6 +3,7 @@ package net.zetlan.examples.core;
 import net.zetlan.examples.db.Product;
 
 import javax.inject.Inject;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,8 +39,8 @@ public class ProductManager extends BaseManager {
         return product;
     }
 
-    public Map<Integer, Product> getProductCatalog() {
-        return PRODUCT_CATALOG;
+    public Collection<Product> getProductCatalog() {
+        return PRODUCT_CATALOG.values();
     }
 
     public Product getBySku(String sku) {
