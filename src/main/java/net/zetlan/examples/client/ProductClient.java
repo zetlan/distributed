@@ -2,7 +2,8 @@ package net.zetlan.examples.client;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import net.zetlan.examples.api.ProductView;
-import net.zetlan.examples.config.ServiceConfiguration;
+import net.zetlan.examples.cli.ServiceName;
+import net.zetlan.examples.config.DistributedExampleConfiguration;
 import org.apache.http.client.HttpClient;
 
 import javax.inject.Inject;
@@ -15,8 +16,8 @@ import java.util.List;
 public class ProductClient extends BaseClient{
 
     @Inject
-    public ProductClient(HttpClient httpClient, ServiceConfiguration serviceConfiguration) {
-        super(httpClient, serviceConfiguration);
+    public ProductClient(HttpClient httpClient, DistributedExampleConfiguration configuration) {
+        super(httpClient, configuration.getServiceConfiguration(ServiceName.PRODUCT));
     }
 
     public List<ProductView> getProductCatalog() {

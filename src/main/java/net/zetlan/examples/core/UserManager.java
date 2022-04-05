@@ -5,6 +5,7 @@ import net.zetlan.examples.db.User;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.WebApplicationException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,5 +31,13 @@ public class UserManager extends BaseManager {
         user.setId(ID_SEQUENCE);
         USER_LIST.put(user.getId(), user);
         return user;
+    }
+
+    public User getByName(String userName) {
+        return USER_LIST.values()
+                .stream()
+                .filter(user -> userName.equalsIgnoreCase(user.getName()))
+                .findFirst()
+                .orElseThrow(WebApplicationException::new);
     }
 }
