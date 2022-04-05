@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import net.zetlan.examples.db.Cart;
 import net.zetlan.examples.db.User;
 import net.zetlan.examples.db.OrderItem;
+import net.zetlan.examples.api.CartRequests;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +14,7 @@ import java.util.Map;
 @Singleton
 public class CartManager extends BaseManager {
     //store the list of carts
-    private static final Map<Integer, Cart> CART_LIST = new HashMap<>();
+    private final Map<Integer, Cart> CART_LIST = new HashMap<>();
 
     @Inject
     public CartManager() {
@@ -36,21 +37,23 @@ public class CartManager extends BaseManager {
         return this.CART_LIST.get(userID);
     }
 
-    public Boolean hasCartFor(Integer userID) {
+    public boolean hasCartFor(Integer userID) {
         return this.CART_LIST.containsKey(userID);
     }
 
     // 2. Add an item to a cart for a user
-    public Cart addItemTo(Integer userID, String sku, Integer quantity) {
+    public Cart addOrRemoveItemFor(Integer userID, CartRequests.ChangeItems itemRequest) {
+        //extract necessary references
+        String sku = itemRequest.getSku();
+        Integer quantity = itemRequest.getQuantity();
         Cart cart = this.getCartFor(userID);
-        cart.addToCart(sku, quantity);
-        return cart;
-    }
 
-    // 3. Remove an item from a cart
-    public Cart removeItemFrom(Integer userID, String sku, Integer quantity) {
-        Cart cart = this.getCartFor(userID);
-        cart.removeFromCart(sku, quantity);
+        //do the adding / removing
+        if (quantity < 0) {
+            cart.removeFromCart(sku, quantity);
+        } else {
+            cart.addToCart(sku, quantity);
+        }
         return cart;
     }
 
