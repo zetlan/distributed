@@ -2,7 +2,6 @@ package net.zetlan.examples.core;
 
 import net.zetlan.examples.Utils;
 import net.zetlan.examples.db.BaseEntity;
-import net.zetlan.examples.db.User;
 
 import javax.ws.rs.WebApplicationException;
 import java.util.List;

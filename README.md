@@ -10,4 +10,14 @@ How to start the DistributedExample application
 Health Check
 ---
 
-To see your applications health enter url `http://localhost:8081/healthcheck`
+To see your application's health enter url `http://localhost:8081/healthcheck`
+
+
+Contributing
+---
+
+You need a few things to get started:
+
+* Java 11 – I'm using Amazon Corretto, but in theory any open Java 11 JDK will work
+* Maven - installed using Homebrew (`brew install maven`)
+* an IDE - the right choice is IntelliJ

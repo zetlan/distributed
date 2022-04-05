@@ -1,33 +1,35 @@
 package net.zetlan.examples.db;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Cart extends BaseEntity {
-    private User user;
-    private List<Product> cartItems = new ArrayList<>();
+    private Integer userId;
+    private Map<String, Integer> skuQuantities = new HashMap<>();
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public List<Product> getCartItems() {
-        return cartItems;
+    public Map<String, Integer> getSkuQuantities() {
+        return skuQuantities;
     }
 
-    public void setCartItems(List<Product> cartItems) {
-        this.cartItems = cartItems;
-    }
-
-    public void addItem(Product newItem) {
-        this.cartItems.add(newItem);
+    public void setSkuQuantities(Map<String, Integer> skuQuantities) {
+        this.skuQuantities = skuQuantities;
     }
 
     public void clearCart() {
-        this.cartItems = new ArrayList<>();
+        this.skuQuantities.clear();
+    }
+
+    public void addToCart(String sku, Integer quantity) {
+        Integer currentQuantity = this.skuQuantities.getOrDefault(sku, 0);
+        currentQuantity = currentQuantity + quantity;
+        this.skuQuantities.put(sku, currentQuantity);
     }
 }
