@@ -4,7 +4,6 @@ import com.google.common.base.Preconditions;
 import net.zetlan.examples.api.OrderRequests;
 import net.zetlan.examples.api.OrderView;
 import net.zetlan.examples.api.ProductView;
-import net.zetlan.examples.api.UserView;
 import net.zetlan.examples.client.ProductClient;
 import net.zetlan.examples.client.UserClient;
 import net.zetlan.examples.core.Mapper;
@@ -45,15 +44,11 @@ public class OrderResource {
 
     @POST
     public OrderView placeOrder(@Valid OrderRequests.PlaceOrder request) {
-        UserView userView = userClient.getByName(request.getUserName());
-        if (userView == null) {
-            throw new WebApplicationException("User not found");
-        }
         List<ProductView> productViews = productClient.getBySkus(request.getProductQuantities().keySet());
         Map<Integer, ProductView> idToProductView = productViews.stream().collect(Collectors.toMap(
                 ProductView::getId, Function.identity()));
 
-        return Mapper.map(orderManager.placeOrder(userView.getId(), request, productViews), userView, idToProductView);
+        return Mapper.map(orderManager.placeOrder(request, productViews), idToProductView);
     }
 
     @GET
@@ -63,16 +58,12 @@ public class OrderResource {
         if (order == null) {
             throw new WebApplicationException("Order not found", Response.Status.NOT_FOUND);
         }
-        UserView userView = userClient.getById(order.getUserId());
-        if (userView == null) {
-            throw new WebApplicationException("User not found");
-        }
 
         List<Integer> productIds = order.getOrderItems().stream().map(OrderItem::getProductId).collect(Collectors.toList());
         List<ProductView> productViews = productClient.getByIds(productIds);
         Map<Integer, ProductView> idToProductView = productViews.stream().collect(Collectors.toMap(
                 ProductView::getId, Function.identity()));
 
-        return Mapper.map(order, userView, idToProductView);
+        return Mapper.map(order, idToProductView);
     }
 }

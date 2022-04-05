@@ -10,16 +10,16 @@ import java.util.List;
 @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class OrderView extends BaseView {
-    private UserView user;
+    private Integer userId;
     private List<OrderItemView> orderItems = new ArrayList<>();
     private int totalCostCents = 0;
 
-    public UserView getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(UserView user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public List<OrderItemView> getOrderItems() {

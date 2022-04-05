@@ -12,15 +12,15 @@ public class OrderRequests {
     @JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class PlaceOrder {
-        private String userName;
+        private Integer userId;
         private Map<String, Integer> productQuantities = new HashMap<>();
 
-        public String getUserName() {
-            return userName;
+        public Integer getUserId() {
+            return userId;
         }
 
-        public void setUserName(String userName) {
-            this.userName = userName;
+        public void setUserId(Integer userId) {
+            this.userId = userId;
         }
 
         public Map<String, Integer> getProductQuantities() {

@@ -26,10 +26,10 @@ public class OrderManager extends BaseManager {
     public OrderManager() {
     }
 
-    public Order placeOrder(Integer userId, OrderRequests.PlaceOrder request, List<ProductView> productViews) {
+    public Order placeOrder(OrderRequests.PlaceOrder request, List<ProductView> productViews) {
         List<OrderItem> orderItems = getOrderItems(productViews, request.getProductQuantities());
 
-        Order order = constructOrder(userId, orderItems);
+        Order order = constructOrder(request.getUserId(), orderItems);
         return saveOrder(order);
     }
 

@@ -57,9 +57,9 @@ public class Mapper {
         return orderItemView;
     }
 
-    public static OrderView map(Order order, UserView userView, Map<Integer, ProductView> idToProductView) {
+    public static OrderView map(Order order, Map<Integer, ProductView> idToProductView) {
         OrderView view = new OrderView();
-        view.setUser(userView);
+        view.setUserId(order.getUserId());
         int totalCost = 0;
         List<OrderItemView> orderItemViews = new ArrayList<>();
         for (var item : order.getOrderItems()) {
