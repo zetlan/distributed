@@ -40,4 +40,8 @@ public class UserManager extends BaseManager {
                 .findFirst()
                 .orElseThrow(WebApplicationException::new);
     }
+
+    public User getById(Integer userId) {
+        return USER_LIST.get(userId);
+    }
 }

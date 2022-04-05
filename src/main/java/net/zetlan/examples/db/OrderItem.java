@@ -1,24 +1,16 @@
 package net.zetlan.examples.db;
 
 public class OrderItem extends BaseEntity {
-    private Integer lineItem = 1;
-    private Product product;
+    private Integer productId;
     private Integer quantity = 1;
+    private Integer priceEachCents = 0;
 
-    public Integer getLineItem() {
-        return lineItem;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setLineItem(Integer lineItem) {
-        this.lineItem = lineItem;
-    }
-
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public Integer getQuantity() {
@@ -27,5 +19,13 @@ public class OrderItem extends BaseEntity {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Integer getPriceEachCents() {
+        return priceEachCents;
+    }
+
+    public void setPriceEachCents(Integer priceEachCents) {
+        this.priceEachCents = priceEachCents;
     }
 }

@@ -9,19 +9,19 @@ public class CartRequests {
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class ChangeItems {
         private String sku;
-        private Integer amount;
+        private Integer difference;
 
         public String getSku() {
             return this.sku;
         }
 
-        public Integer getQuantity() {
-            return this.amount;
+        public Integer getDifference() {
+            return this.difference;
         }
 
-        public ChangeItems(String sku, Integer amount) {
+        public ChangeItems(String sku, Integer difference) {
             this.sku = sku;
-            this.amount = amount;
+            this.difference = difference;
         }
     }
 }

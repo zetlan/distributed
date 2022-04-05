@@ -36,4 +36,14 @@ public class UserClient extends BaseClient{
 
         return get(endpoint, new TypeReference<>(){});
     }
+
+    public UserView getById(Integer userId) {
+        URI endpoint = UriBuilder.fromUri(baseUri)
+                .path("/user")
+                .path("id")
+                .path(userId.toString())
+                .build();
+
+        return get(endpoint, new TypeReference<>(){});
+    }
 }

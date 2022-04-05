@@ -4,16 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order extends BaseEntity {
-    private User user;
+    private Integer userId;
     private List<OrderItem> orderItems = new ArrayList<>();
     private Integer totalCost = 0;
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public List<OrderItem> getOrderItems() {

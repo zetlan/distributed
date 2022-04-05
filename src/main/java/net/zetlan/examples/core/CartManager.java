@@ -1,13 +1,10 @@
 package net.zetlan.examples.core;
 
+import net.zetlan.examples.api.CartRequests;
+import net.zetlan.examples.db.Cart;
+
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
-import net.zetlan.examples.db.Cart;
-import net.zetlan.examples.db.User;
-import net.zetlan.examples.db.OrderItem;
-import net.zetlan.examples.api.CartRequests;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,14 +42,14 @@ public class CartManager extends BaseManager {
     public Cart addOrRemoveItemFor(Integer userID, CartRequests.ChangeItems itemRequest) {
         //extract necessary references
         String sku = itemRequest.getSku();
-        Integer quantity = itemRequest.getQuantity();
+        Integer difference = itemRequest.getDifference();
         Cart cart = this.getCartFor(userID);
 
-        //do the adding / removing
-        if (quantity < 0) {
-            cart.removeFromCart(sku, quantity);
+        // do the adding / removing
+        if (difference < 0) {
+            cart.removeFromCart(sku, difference);
         } else {
-            cart.addToCart(sku, quantity);
+            cart.addToCart(sku, difference);
         }
         return cart;
     }

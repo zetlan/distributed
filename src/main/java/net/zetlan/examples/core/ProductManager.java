@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ProductManager extends BaseManager {
     private static final Map<Integer, Product> PRODUCT_CATALOG = new HashMap<>();
@@ -44,10 +45,22 @@ public class ProductManager extends BaseManager {
     }
 
     public Product getBySku(String sku) {
-        return PRODUCT_CATALOG.values().stream()
+        return PRODUCT_CATALOG.values()
+                .stream()
                 .filter(product -> product.getSku().equals(sku))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public List<Product> getBySkus(Collection<String> skus) {
+        return PRODUCT_CATALOG.values()
+                .stream()
+                .filter(product -> skus.contains(product.getSku()))
+                .collect(Collectors.toList());
+    }
+
+    public List<Product> getByIds(List<Integer> productIds) {
+        return productIds.stream().map(PRODUCT_CATALOG::get).collect(Collectors.toList());
     }
 
 }

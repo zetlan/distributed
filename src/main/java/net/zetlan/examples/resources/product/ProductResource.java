@@ -1,6 +1,7 @@
 package net.zetlan.examples.resources.product;
 
 import com.google.common.base.Preconditions;
+import net.zetlan.examples.api.ProductRequests;
 import net.zetlan.examples.api.ProductView;
 import net.zetlan.examples.core.Mapper;
 import net.zetlan.examples.core.ProductManager;
@@ -8,7 +9,9 @@ import net.zetlan.examples.db.Product;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.inject.Inject;
+import javax.validation.Valid;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -48,5 +51,23 @@ public class ProductResource {
             throw new WebApplicationException(Response.noContent().build());
         }
         return Mapper.map(productManager.getBySku(sku));
+    }
+
+    @POST
+    @Path("skus")
+    public List<ProductView> getBySkus(@Valid ProductRequests.GetProducts request) {
+        return productManager.getBySkus(request.getSkus())
+                .stream()
+                .map(Mapper::map)
+                .collect(Collectors.toList());
+    }
+
+    @POST
+    @Path("by-ids")
+    public List<ProductView> getByIds(List<Integer> productIds) {
+        return productManager.getByIds(productIds)
+                .stream()
+                .map(Mapper::map)
+                .collect(Collectors.toList());
     }
 }
