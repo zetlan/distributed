@@ -34,16 +34,20 @@ public class Cart extends BaseEntity {
         this.skuQuantities.put(sku, currentQuantity);
     }
 
+    /**
+     * Remove an item from a cart
+     * @param sku - the SKU of the item
+     * @param quantity - how many to remove
+     * @throws WebApplicationException when things go boom
+     */
     public void removeFromCart(String sku, Integer quantity) throws WebApplicationException {
         //can't remove an item that doesn't exist
         if (!this.skuQuantities.containsKey(sku)) {
-            throw new WebApplicationException();
+            return;
         }
 
         //can't remove more items than what's in the cart
-        if (this.skuQuantities.get(sku) < quantity) {
-            throw new WebApplicationException();
-        }
+        quantity = Math.min(quantity, this.skuQuantities.get(sku));
 
         //now that the issues are out of the way, remove the item(s) from the cart
         this.skuQuantities.put(sku, this.skuQuantities.get(sku) - quantity);
